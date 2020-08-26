@@ -2,9 +2,10 @@
   "name": "ciri-fetch",
   "version": "1.0.0",
   "description": "Requests encryption designed for cross-fetch.",
-  "main": "/lib/index.js",
+  "main": "dist/ciri-fetch.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/rollup -c",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,15 @@
   },
   "homepage": "https://github.com/autozerolee/ciri-fetch#readme",
   "dependencies": {
+    "@babel/runtime": "^7.11.2",
     "cross-fetch": "^3.0.5",
     "node-forge": "^0.9.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@rollup/plugin-babel": "^5.2.0",
+    "rollup": "^2.26.5"
   }
 }

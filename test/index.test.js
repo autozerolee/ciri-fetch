@@ -1,29 +1,48 @@
-const forge = require('node-forge');
-const pki = forge.pki;
-const Crypto = require('../lib/crypto');
+import request from '../lib/index';
 
-const obj = {name: "tom", age: 16};
-let { publicKey, privateKey } = pki.rsa.generateKeyPair({bits: 2048, e: 0x10001});
-publicKey = pki.publicKeyToPem(publicKey);
+const host = "http://39.104.88.98:8090/api"
 
-describe("Crypto test.", () => {
-  it('test aes.', () => {
-    const cipher = new Crypto();
-    const encrypted = cipher.encryptByAes(JSON.stringify(obj));
-    const decrypted = cipher.decryptByAes(encrypted);
-    expect(decrypted).toBe(JSON.stringify(obj));
+describe('request test', () => {
+  describe('Request Header', () => {
+    it('set header.Authorization', () => {
+    
+    });
+    it('set header.ContentType', () => {
+
+    });
+    it('default header.ContentType', () => {
+
+    })
   });
 
-  it('test rsa.', () => {
-    const cipher = new Crypto(publicKey);
+  describe('Request Params', () => {
+    it('get/header', () => {
 
-    const bytes = forge.random.getBytesSync(16);
-    cipher.token = forge.util.bytesToHex(bytes);
+    });
+    it('post/put/patch', () => {
 
-    const encrypted = cipher.encryptByRsa(); // is hex so needs to bytes.
-    const decrypted = privateKey.decrypt(forge.util.hexToBytes(encrypted));
+    });
+  });
 
-    const message = JSON.parse(decrypted);
-    expect(message.token).toBe(cipher.token);
-  })
-});
+  it('Request Status', () => {
+
+  });
+
+  describe('Response', () => {
+    it('header.Authorization and set token', () => {
+      if(cipher.auth) {
+        // 解密后的token 与 cipher.token 一致
+      }else {
+        // 抛出异常
+      }
+    });
+
+    it('header.Xsignature', () => {
+      if(signature) {
+        // res === forge解密后的数据
+      }else {
+        // 直接返回一个对象.
+      }
+    })
+  });
+})
