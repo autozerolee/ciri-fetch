@@ -4,11 +4,13 @@ module.exports = function(api) {
   return {
     presets: [
       ["@babel/env", {
-        "targets": {}, // "> 0.5%, last 2 versions, not dead"
+        "loose": true,
+        "targets": "> 0.5%, last 2 versions, not dead",
+        "modules": false
       }]
     ],
     plugins: [
-      ["@babel/plugin-transform-runtime", { "corejs": false }]
+      ["@babel/plugin-transform-runtime"]
     ]
   }
 }
