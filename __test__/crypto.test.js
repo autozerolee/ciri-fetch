@@ -1,5 +1,5 @@
 import forge from 'node-forge';
-import Crypto from '../lib/crypto';
+import Crypto from '../src/middleware/crypto';
 
 const pki = forge.pki;
 

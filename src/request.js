@@ -1,7 +1,7 @@
 import Core from './core';
 import Cancel from './cancel/cancel.js';
 import CancelToken from './cancel/cancelToken';
-import { mergeRequestOptions } from './utils';
+import { mergeRequestOptions } from './util';
 
 // 在 core 的基础上包装一层，处理cancel，添加语法糖
 const request = function(initOptions = {}) {

@@ -24,15 +24,20 @@
   "homepage": "https://github.com/autozerolee/ciri-fetch#readme",
   "devDependencies": {
     "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@rollup/plugin-babel": "^5.2.0",
+    "create-test-server": "^3.0.1",
+    "http-create-server": "^1.0.0",
+    "jest": "^26.4.2",
     "rollup": "^2.26.5",
     "rollup-plugin-filesize": "^9.0.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
-    "cross-fetch": "^3.0.5"
+    "cross-fetch": "^3.0.5",
+    "node-forge": "^0.9.1"
   }
 }

@@ -24,6 +24,12 @@ class Onion {
     let core = false;
     let defaultInstance = false;
 
+    if(typeof opts === 'object' || opts) {
+      global = opts.global || false;
+      core = opts.core || false;
+      defaultInstance = opts.defaultInstance || false;
+    }
+
     if (global) {
       Onion.globalMiddlewares.splice(
         Onion.globalMiddlewares.length - Onion.defaultGlobalMiddlewaresLength,

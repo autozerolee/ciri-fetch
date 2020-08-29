@@ -192,7 +192,9 @@ export class MapCache {
   set(key, value, ttl = 60000) {
     // 如果超过最大缓存数, 删除头部的第一个缓存.
     if (this.maxCache > 0 && this.cache.size >= this.maxCache) {
-      const deleteKey = [...this.cache.keys()][0];
+      // map.keys return Map.Iterator need turn array
+      const keys = [...this.cache.keys()];
+      const deleteKey = keys[0];
       this.cache.delete(deleteKey);
       if (this.timer[deleteKey]) {
         clearTimeout(this.timer[deleteKey]);

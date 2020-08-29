@@ -1,5 +1,5 @@
 import 'cross-fetch/polyfill';
-import { timeout2Throw, cancel2Throw, getEnv } from '../utils';
+import { timeout2Throw, cancel2Throw, getEnv } from '../util';
 
 let warnedCoreType = false;
 

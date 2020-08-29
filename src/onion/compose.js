@@ -8,7 +8,7 @@
 export default function compose(middlewares) {
   if (!Array.isArray(middlewares)) throw new TypeError('Middlewares must be an array!');
   const midwaresLen = middlewares.length;
-  for (let i = 0; i < middlewaresLen; i++) {
+  for (let i = 0; i < midwaresLen; i++) {
     if (typeof middlewares[i] !== 'function') {
       throw new TypeError('Middleware must be componsed of function');
     }

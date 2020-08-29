@@ -31,37 +31,37 @@ describe('test utils:', () => {
     it('test max cache', () => {
       const mapCache = new MapCache({ maxCache: 3 });
 
-      mapCache.set('max1', { what: 'ok' }, 10000);
-      mapCache.set('max1', { what: 'ok1' }, 10000);
-      mapCache.set('max2', { what: 'ok2' }, 10000);
-      mapCache.set('max3', { what: 'ok3' }, 10000);
+      mapCache.set('max1', { what: 'ok' });
+      mapCache.set('max1', { what: 'ok1' });
+      mapCache.set('max2', { what: 'ok2' });
+      mapCache.set('max3', { what: 'ok3' });
 
       expect(mapCache.get('max1').what).toBe('ok1');
 
       // 超出限制删除顶部第一个
-      mapCache.set('max4', { what: 'ok4' }, 100000);
+      mapCache.set('max4', { what: 'ok4' });
       expect(mapCache.get('max1')).toBe(undefined);
     })
     it('test max cache', () => {
       const mapCache = new MapCache({ maxCache: 3 });
 
       // 测试超过最大数
-      mapCache.set('max1', { what: 'ok' }, 10000);
-      mapCache.set('max1', { what: 'ok1' }, 10000);
-      mapCache.set('max2', { what: 'ok2' }, 10000);
-      mapCache.set('max3', { what: 'ok3' }, 10000);
+      mapCache.set('max1', { what: 'ok' });
+      mapCache.set('max1', { what: 'ok1' });
+      mapCache.set('max2', { what: 'ok2' });
+      mapCache.set('max3', { what: 'ok3' });
       expect(mapCache.get('max1').what).toBe('ok1');
-      mapCache.set('max4', { what: 'ok4' }, 10000);
-      expect(mapCache.get('max1')).toBe(undefined);
+      mapCache.set('max4', { what: 'ok4' });
       mapCache.set('max5', { what: 'ok5' });
-      mapCache.set('max6', { what: 'ok6' }, 0);
+      mapCache.set('max6', { what: 'ok6' });
+      expect(mapCache.get('max3')).toBe(undefined);
     });
   });
   describe('test getEnv', () => {
     it('should return BROWSER', done => {
-        const env = getEnv();
-        expect(env).toBe('BROWSER');
-        done();
+      const env = getEnv();
+      expect(env).toBe('BROWSER');
+      done();
     });
   });
 });
