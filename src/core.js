@@ -52,7 +52,7 @@ class Core {
         ctx.req.options = ret.options || ctx.req.options;
         return p2(ctx.req.url, ctx.req.options);
       });
-    const _interceptors = [...this.instanceRequestInterceptors];
+    const _interceptors = [...this.instReqInterceptors];
     return _interceptors.reduce(reducer, Promise.resolve()).then((ret = {}) => {
       ctx.req.url = ret.url || ctx.req.url;
       ctx.req.options = ret.options || ctx.req.options;
@@ -61,25 +61,24 @@ class Core {
   }
 
   request(url, options) {
-    const { onion } = this;
-    const obj = {
+    const ctx = {
       req: { url, options },
       res: null,
       cache: this.mapCache,
-      responseInterceptors: [...this.instanceResponseInterceptors],
+      responseInterceptors: [...this.instResInterceptors],
     };
     if (typeof url !== 'string') {
       throw new Error('url MUST be a string');
     }
 
     return new Promise((resolve, reject) => {
-      this.dealRequestInterceptors(obj)
-        .then(() => onion.execute(obj))
+      this.dealRequestInterceptors(ctx)
+        .then(() => this.onion.execute(ctx))
         .then(() => {
-          resolve(obj.res);
+          resolve(ctx.res);
         })
         .catch(error => {
-          const { errorHandler } = obj.req.options;
+          const { errorHandler } = ctx.req.options;
           if (errorHandler) {
             try {
               const data = errorHandler(error);

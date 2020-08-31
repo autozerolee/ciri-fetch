@@ -45,7 +45,7 @@ export default class Crypto {
     const pki = forge.pki;
     const publicKey = pki.publicKeyFromPem(this.pubkey);
     const message = JSON.stringify({
-      timestamp: new Date().getTime(),
+      timestamp: new Date().valueOf(),
       token: this.token,
       key: forge.util.bytesToHex(this.key)
     });

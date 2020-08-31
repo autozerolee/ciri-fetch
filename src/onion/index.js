@@ -10,8 +10,7 @@ import compose from './compose';
 class Onion {
   constructor(defaultMiddlewares) {
     if (!Array.isArray(defaultMiddlewares)) throw new TypeError('Default middlewares must be an array!');
-    this.defaultMiddlewares = [...defaultMiddlewares];
-    this.middlewares = [];
+    this.middlewares = [...defaultMiddlewares];
   }
 
   static globalMiddlewares = []; // 全局中间件
@@ -19,20 +18,18 @@ class Onion {
   static coreMiddlewares = []; // 内核中间件
   static coreMiddlewaresLength = 0; // 内置内核中间件长度
 
-  use(newMiddleware, opts = { global: false, core: false, defaultInstance: false }) {
+  use(newMiddleware, opts = { global: false, core: false }) {
     let global = false;
     let core = false;
-    let defaultInstance = false;
 
     if(typeof opts === 'object' || opts) {
       global = opts.global || false;
       core = opts.core || false;
-      defaultInstance = opts.defaultInstance || false;
     }
 
     if (global) {
       Onion.globalMiddlewares.splice(
-        Onion.globalMiddlewares.length - Onion.defaultGlobalMiddlewaresLength,
+        Onion.globalMiddlewares.length - Onion.globalMiddlewaresLength,
         0,
         newMiddleware
       );
@@ -40,26 +37,32 @@ class Onion {
     }
 
     if(core) {
-      Onion.coreMiddlewares.splice(Onion.coreMiddlewares.length - Onion.defaultCoreMiddlewaresLength, 0, newMiddleware);
+      Onion.coreMiddlewares.splice(
+        Onion.coreMiddlewares.length - Onion.coreMiddlewaresLength, 
+        0, 
+        newMiddleware
+      );
       return;
     }
-
-    if (defaultInstance) {
-      this.defaultMiddlewares.push(newMiddleware);
-      return;
-    }
-
     this.middlewares.push(newMiddleware);
   }
 
-  execute(params = null) {
+  /**
+   * compose middlewares and execute
+   * Ctx.req: { !url: {string}, !options: {object} }
+   * Ctx.res: {?object}
+   * Ctx.cache: {?<MapCache>}, 
+   * Ctx.responseInterceptors: {?function[]}}
+   * @param {ctx} ctx
+   * @return {function} 
+   */
+  execute(ctx = null) {
     const fn = compose([
       ...this.middlewares,
-      ...this.defaultMiddlewares,
       ...Onion.globalMiddlewares,
       ...Onion.coreMiddlewares,
     ]);
-    return fn(params);
+    return fn(ctx);
   }
 }
 

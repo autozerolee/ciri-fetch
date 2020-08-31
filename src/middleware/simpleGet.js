@@ -35,7 +35,7 @@ export function paramsSerialize(params, paramsSerializer) {
           if (isNotExist(value)) {
             objParams[key] = value;
           } else if (isDate(value)) {
-            _objParamsValue = value.getTime();
+            _objParamsValue = value.valueOf();
           } else if (isArray(value)) {
             _objParamsValue = value.join(',');
           } else if (isObject(value)) {

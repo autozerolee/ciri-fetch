@@ -1,4 +1,4 @@
-import { getEnv, readerGBK, safeJsonParse, ResponseError } from '../util';
+import { getEnv, readerGBK, safeJsonParse, RequestError, ResponseError } from '../util';
 
 export default function parseResponseMiddleware(ctx, next) {
   let copy;
@@ -58,7 +58,7 @@ export default function parseResponseMiddleware(ctx, next) {
         ctx.res = body;
         return;
       }
-      throw new ResponseError(copy, 'http error', body, req, 'HttpError');
+      throw new ResponseError(copy, `http error:${copy.status}`, body, req, 'HttpError');
     })
     .catch(err => {
       if (err instanceof RequestError || err instanceof ResponseError) {
