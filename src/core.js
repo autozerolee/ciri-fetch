@@ -3,10 +3,10 @@ import { MapCache, mergeRequestOptions } from './util';
 import addfixInterceptor from './interceptor/addfix';
 import fetchMiddleware from './middleware/fetch';
 import parseResponseMiddleware from './middleware/parseResponse';
-import simplePost from './middleware/simplePost';
-import simpleGet from './middleware/simpleGet';
+import requestType from './middleware/requestType';
+import serializer from './middleware/serializer';
 
-const globalMiddlewares = [simplePost, simpleGet, parseResponseMiddleware];
+const globalMiddlewares = [requestType, serializer, parseResponseMiddleware];
 const coreMiddlewares = [fetchMiddleware];
 
 Onion.globalMiddlewares = globalMiddlewares;

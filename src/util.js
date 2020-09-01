@@ -13,16 +13,6 @@ const parse = function(url) {
   }, {})
 }
 
-const stringify = function(json) {
-  if(isObject(json) && toString.call(json) === '[object Object]') {
-    return Object.keys(json)
-      .map((key) => json[key] != null ? `${key}=${encodeURIComponent(json[key])}` : key)
-      .join('&');
-  }else {
-    return '';
-  }
-}
-
 // 请求异常
 export class RequestError extends Error {
   constructor(text, request, type = 'RequestError') {
@@ -153,8 +143,18 @@ export function getParamObject(val) {
   return val;
 }
 
-export function reqStringify(val) {
-  return stringify(val, { arrayFormat: 'repeat', strictNullHandling: true });
+export function reqStringify(obj) {
+  let result = [];
+  for(let key in obj) {
+    if(obj[key] === null) {
+      result.push(key);
+    }else if(obj[key] === undefined) {
+      continue;
+    }else {
+      result.push(`${key}=${encodeURIComponent(obj[key])}`);
+    }
+  }
+  return result.join('&');
 }
 
 export function mergeRequestOptions(options, options2Merge) {
